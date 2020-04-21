@@ -1,15 +1,14 @@
 
 public class BadAccountException extends Exception {
 
-  public int accountNumber;  // The invalid account number.
+	public int accountNumber; // The invalid account number.
 
-  /**
-   *  Creates an exception object for nonexistent account "badAcctNumber".
-   **/
-  public BadAccountException(int badAcctNumber) {
-    super("Invalid account number: " + badAcctNumber);
+	/**
+	 * Creates an exception object for nonexistent account "badAcctNumber".
+	 **/
+	public BadAccountException(int badAcctNumber) {
+		super("Invalid account number: " + badAcctNumber);
 
-    accountNumber = badAcctNumber;
-  }
+		accountNumber = badAcctNumber;
+	}
 }
-
