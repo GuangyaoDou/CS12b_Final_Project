@@ -1,9 +1,14 @@
+import java.util.*;
+
 public class BankTeller {
 	private static int nextAccountID = 100;
-	private SortedList accounts;
+	//private SortedList accounts;
+	List<AccountData> accounts;
+	
 
 	public BankTeller() {
-		accounts = new SortedList();
+		accounts = new LinkedList<AccountData>();
+		
 	}
 
 	/**
@@ -14,7 +19,8 @@ public class BankTeller {
 	 **/
 	public int openAccount(String name) {
 		AccountData newData = new AccountData(name, nextAccountID);
-		accounts.insert(newData);
+		//accounts.insert(newData);
+		accounts.add(newData);
 
 		nextAccountID++;
 		return newData.getNumber();
@@ -82,9 +88,32 @@ public class BankTeller {
 	 * @throws BadAccountException
 	 */
 	private AccountData findAccount(int acct) throws BadAccountException {
-		AccountData account = (AccountData) accounts.find(acct);
-		if (account == null) {
-			throw new BadAccountException(acct);
+//		AccountData account = new AccountData("null", 0);
+//		Iterator<AccountData> iter = accounts.iterator();
+//		while (iter.hasNext()) {
+//			AccountData temp = (AccountData) iter.next();
+//			if(temp.getKey() == acct) {
+//				account = temp;
+//				System.out.print(account.getNumber());
+//			}
+//			break;
+//		}
+//		//AccountData account = (AccountData) accounts.find(acct);
+//		if (account.getKey() == 0) {
+//			throw new BadAccountException(acct);
+//		}
+//		return account;
+		AccountData account = new AccountData("null", 0);
+		Iterator<AccountData> iter = accounts.iterator();
+		while(iter.hasNext()) {
+			AccountData temp = iter.next();
+			if(temp.getNumber() == acct) {
+				account = temp;
+				break;
+			}
+		}
+		if(account.getNumber()== 0) {
+			throw new  BadAccountException(acct);
 		}
 		return account;
 	}
