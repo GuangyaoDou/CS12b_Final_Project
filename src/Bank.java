@@ -154,7 +154,13 @@ public class Bank {
 		ATM.withdraw(acctNumber, exchange);
 		ATM.foreignDeposit(acctNumber, currency, amount);
 		System.out.println("New balance for #" + acctNumber + " is " + ATM.balanceInquiry(acctNumber)+" USD");
-		System.out.println("New foreign currency balance for #" + acctNumber + " is " + ATM.foreignBalanceInquiry(acctNumber)+ " "+currency);
+		Set<String> types = ATM.foreignBalanceInquiry(acctNumber);
+		if (types.size() > 0) {
+			for (String type : types) {
+				System.out.println("New foreign currency balance for #" + acctNumber + " is " + ATM.getForeignCurAmt(acctNumber, type) + " "+type);
+
+			}
+		}
 	}
 
 	/**
@@ -171,7 +177,14 @@ public class Bank {
 			return;
 		}
 		System.out.println("Balance for #" + acctNumber + " is " + ATM.balanceInquiry(acctNumber)+" USD");
-		System.out.println("Foreign currency balance for #" + acctNumber + " is " + ATM.foreignBalanceInquiry(acctNumber)+ " "+ ATM.getForeignCurType(acctNumber));
+		Set<String> types = ATM.foreignBalanceInquiry(acctNumber);
+				if (types.size() > 0) {
+					for (String type : types) {
+						System.out.println("New foreign currency balance for #" + acctNumber + " is " + ATM.getForeignCurAmt(acctNumber, type) + " "+type);
+					}
+				}
+
+//		System.out.println("Foreign currency balance for #" + acctNumber + " is " + ATM.foreignBalanceInquiry(acctNumber)+ " "+ ATM.getForeignCurType(acctNumber));
 	}
 
 	/**

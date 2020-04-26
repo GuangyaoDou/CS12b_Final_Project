@@ -69,21 +69,25 @@ public class BankTeller {
 		AccountData account = findAccount(acct);
 
 		if (account != null) {
-			account.foreignDeposit(amount);
-			account.setForeignCurType(type);
+			account.foreignDeposit(type, amount);
 		}
 	}
 	
-	public String getForeignCurType(int acct) throws BadAccountException {
+	/**
+	 * Given the account number and foreign currency type, returns the amount balance.
+	 * @param acct
+	 * @param type
+	 * @return foreign currency balance 
+	 * @throws BadAccountException
+	 */
+	public int getForeignCurAmt(int acct, String type) throws BadAccountException {
 		AccountData account = findAccount(acct);
-		String curType  = "";
+		Map<String, Integer> foreignAccount = new HashMap<String, Integer>();
 		if (account != null) 
-			curType = account.getForeignCurType();
-		return curType;	
+			foreignAccount = account.getForeignAccount();
+		return foreignAccount.get(type);	
 	}
 	
-	
-
 	/**
 	 * Finds the balance on the account whose number is "acct". If "acct" is an
 	 * invalid number, returns -1.
@@ -103,19 +107,24 @@ public class BankTeller {
 	}
 	
 	/**
-	 * Finds the foreign currency balance on the account whose number is "acct".
+	 * Finds the foreign currency types on the account whose number is "acct".
 	 * @param acct
-	 * @return
+	 * @return foreign currency types
 	 * @throws BadAccountException
 	 */
-	public int foreignBalanceInquiry(int acct) throws BadAccountException {
+	public Set<String> foreignBalanceInquiry(int acct) throws BadAccountException {
 		AccountData account = findAccount(acct);
-
+		Set<String> curTypes = new HashSet<String>();
 		if (account == null) {
 			System.out.println("Error:  Couldn't find account number `" + acct + "'");
-			return -1;
+			return curTypes;
 		} else {
-			return account.getForeignBalance();
+            if (account.getForeignAccount().size()>0){
+				curTypes = account.getForeignAccount().keySet();
+				return curTypes;
+			} else {
+				return curTypes;
+			}
 		}
 	}
 

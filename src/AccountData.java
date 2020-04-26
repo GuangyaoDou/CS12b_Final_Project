@@ -1,8 +1,10 @@
+import java.util.*;
 
 public class AccountData{
 	private String name; // Customer name.
 	private int balance; // Starting balance.
 	private int number; // Account number.
+	private Map<String, Integer> foreignAccount; 
 	private int foreignBalance; //balance in foreign currency account.
 	private String foreignCurType;
 
@@ -12,6 +14,7 @@ public class AccountData{
 		balance = 0;
 		foreignBalance = 0;
 		foreignCurType = "";
+		foreignAccount = new HashMap<String, Integer>();
 	}
 
 
@@ -36,26 +39,33 @@ public class AccountData{
 		return balance;
 	}
 	
-	/**
-	 * Returns the foreign currency balance of this account.
-	 **/
-	public int getForeignBalance() {
-		return foreignBalance;
-	}
+//	/**
+//	 * Returns the foreign currency balance of this account.
+//	 **/
+//	public int getForeignBalance() {
+//		return foreignBalance;
+//	}
+//	
+//	/**
+//	 * Returns the foreign currency type of this account.
+//	 */
+//	public String getForeignCurType() {
+//		return foreignCurType;
+//	}
 	
 	/**
-	 * Returns the foreign currency type of this account.
+	 * Returns the foreign account
 	 */
-	public String getForeignCurType() {
-		return foreignCurType;
+	public Map<String, Integer> getForeignAccount() {
+		return foreignAccount;
 	}
 	
-	/**
-	 * Returns the foreign currency type of this account.
-	 */
-	public void setForeignCurType(String type) {
-		foreignCurType = type;
-	}
+//	/**
+//	 * Returns the foreign currency type of this account.
+//	 */
+//	public void setForeignCurType(String type) {
+//		foreignCurType = type;
+//	}
 
 	/**
 	 * Reduces the balance by the withdrawal amount "amt".
@@ -83,9 +93,11 @@ public class AccountData{
 	 * deposit amt foreign currency into the account.
 	 * @param amt
 	 */
-	public void foreignDeposit(int amt) {
+	public void foreignDeposit(String type, int amt) {
 		if (amt >= 0) {
 			foreignBalance = foreignBalance + amt;
+			foreignCurType = type;
+			foreignAccount.put(foreignCurType, foreignBalance);
 		} else {
 			System.out.println("Error:  Tried to deposit less than 0: " + amt);
 		}
