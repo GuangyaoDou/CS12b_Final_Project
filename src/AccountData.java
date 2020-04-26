@@ -1,5 +1,5 @@
 
-public class AccountData implements Keyable {
+public class AccountData{
 	private String name; // Customer name.
 	private int balance; // Starting balance.
 	private int number; // Account number.
@@ -12,13 +12,6 @@ public class AccountData implements Keyable {
 		foreignBalance = 0;
 	}
 
-	/**
-	 * Returns true if this account's number is less than the argument's account
-	 * number.
-	 **/
-	public boolean lessThan(Keyable x) {
-		return number < ((AccountData) x).number;
-	}
 
 	/**
 	 * Returns the name of this account's owner.
@@ -89,11 +82,5 @@ public class AccountData implements Keyable {
 		return number;
 	}
 
-	/**
-	 * Returns this account's account number as the key to use for sorting and
-	 * comparison
-	 **/
-	public int getKey() {
-		return number;
-	}
+
 }
