@@ -149,6 +149,10 @@ public class Bank {
 		exchangeRate.put("HKD", 7.75);
 		System.out.println("We provide currency exchange for EUR, GBP, CAD，JPY, HKD.");
 		String currency = readLine("Enter the currency: ");
+		if (!exchangeRate.containsKey(currency)) {
+			System.out.println("Sorry, we only provide currency exchange for EUR, GBP, CAD，JPY, HKD.");
+			return;
+		}
 		int exchange = readInt("Enter amount to exchange(in USD): ");
 		int amount = (int)(exchangeRate.get(currency)*exchange);
 		ATM.withdraw(acctNumber, exchange);
@@ -183,8 +187,6 @@ public class Bank {
 						System.out.println("New foreign currency balance for #" + acctNumber + " is " + ATM.getForeignCurAmt(acctNumber, type) + " "+type);
 					}
 				}
-
-//		System.out.println("Foreign currency balance for #" + acctNumber + " is " + ATM.foreignBalanceInquiry(acctNumber)+ " "+ ATM.getForeignCurType(acctNumber));
 	}
 
 	/**

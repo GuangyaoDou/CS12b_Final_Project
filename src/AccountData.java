@@ -17,7 +17,6 @@ public class AccountData{
 		foreignAccount = new HashMap<String, Integer>();
 	}
 
-
 	/**
 	 * Returns the name of this account's owner.
 	 **/
@@ -38,21 +37,7 @@ public class AccountData{
 	public int getBalance() {
 		return balance;
 	}
-	
-//	/**
-//	 * Returns the foreign currency balance of this account.
-//	 **/
-//	public int getForeignBalance() {
-//		return foreignBalance;
-//	}
-//	
-//	/**
-//	 * Returns the foreign currency type of this account.
-//	 */
-//	public String getForeignCurType() {
-//		return foreignCurType;
-//	}
-	
+		
 	/**
 	 * Returns the foreign account
 	 */
@@ -60,13 +45,6 @@ public class AccountData{
 		return foreignAccount;
 	}
 	
-//	/**
-//	 * Returns the foreign currency type of this account.
-//	 */
-//	public void setForeignCurType(String type) {
-//		foreignCurType = type;
-//	}
-
 	/**
 	 * Reduces the balance by the withdrawal amount "amt".
 	 **/
@@ -95,8 +73,12 @@ public class AccountData{
 	 */
 	public void foreignDeposit(String type, int amt) {
 		if (amt >= 0) {
-			foreignBalance = foreignBalance + amt;
 			foreignCurType = type;
+			if (foreignAccount.containsKey(foreignCurType)) {
+				foreignBalance = foreignAccount.get(type) + amt;
+			} else {
+				foreignBalance = amt;
+			}	
 			foreignAccount.put(foreignCurType, foreignBalance);
 		} else {
 			System.out.println("Error:  Tried to deposit less than 0: " + amt);
@@ -109,6 +91,4 @@ public class AccountData{
 	public int getNumber() {
 		return number;
 	}
-
-
 }
