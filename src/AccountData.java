@@ -4,12 +4,14 @@ public class AccountData{
 	private int balance; // Starting balance.
 	private int number; // Account number.
 	private int foreignBalance; //balance in foreign currency account.
+	private String foreignCurType;
 
 	public AccountData(String newName, int num) {
 		name = newName;
 		number = num;
 		balance = 0;
 		foreignBalance = 0;
+		foreignCurType = "";
 	}
 
 
@@ -39,6 +41,20 @@ public class AccountData{
 	 **/
 	public int getForeignBalance() {
 		return foreignBalance;
+	}
+	
+	/**
+	 * Returns the foreign currency type of this account.
+	 */
+	public String getForeignCurType() {
+		return foreignCurType;
+	}
+	
+	/**
+	 * Returns the foreign currency type of this account.
+	 */
+	public void setForeignCurType(String type) {
+		foreignCurType = type;
 	}
 
 	/**

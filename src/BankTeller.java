@@ -67,13 +67,24 @@ public class BankTeller {
 	 * @param amount
 	 * @throws BadAccountException
 	 */
-	public void foreignDeposit(int acct, int amount) throws BadAccountException {
+	public void foreignDeposit(int acct, String type, int amount) throws BadAccountException {
 		AccountData account = findAccount(acct);
 
 		if (account != null) {
 			account.foreignDeposit(amount);
+			account.setForeignCurType(type);
 		}
 	}
+	
+	public String getForeignCurType(int acct) throws BadAccountException {
+		AccountData account = findAccount(acct);
+		String curType  = "";
+		if (account != null) 
+			curType = account.getForeignCurType();
+		return curType;	
+	}
+	
+	
 
 	/**
 	 * Finds the balance on the account whose number is "acct". If "acct" is an

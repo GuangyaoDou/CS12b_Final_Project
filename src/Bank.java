@@ -122,8 +122,8 @@ public class Bank {
 		int exchange = readInt("Enter amount to exchange(in USD): ");
 		int amount = (int)(exchangeRate.get(currency)*exchange);
 		ATM.withdraw(acctNumber, exchange);
-		ATM.foreignDeposit(acctNumber, amount);
-		System.out.println("New balance for #" + acctNumber + " is " + ATM.balanceInquiry(acctNumber));
+		ATM.foreignDeposit(acctNumber, currency, amount);
+		System.out.println("New balance for #" + acctNumber + " is " + ATM.balanceInquiry(acctNumber)+" USD");
 		System.out.println("New foreign currency balance for #" + acctNumber + " is " + ATM.foreignBalanceInquiry(acctNumber)+ " "+currency);
 	}
 
@@ -135,13 +135,13 @@ public class Bank {
 	 */
 	private void doInquire() throws IOException, BadAccountException {
 		int acctNumber = readInt("Enter account number: ");
-		String str = readLine("Enter yout name");
+		String str = readLine("Enter yout name: ");
 		if (!str.equals(ATM.findAccount(acctNumber).getOwner())){
 			System.out.println("Name do not match; Deny access");
 			return;
 		}
-		System.out.println("Balance for #" + acctNumber + " is " + ATM.balanceInquiry(acctNumber));
-		System.out.println("Balance for #" + acctNumber + " is " + ATM.foreignBalanceInquiry(acctNumber));
+		System.out.println("Balance for #" + acctNumber + " is " + ATM.balanceInquiry(acctNumber)+" USD");
+		System.out.println("Foreign currency balance for #" + acctNumber + " is " + ATM.foreignBalanceInquiry(acctNumber)+ " "+ ATM.getForeignCurType(acctNumber));
 	}
 
 	/**
