@@ -2,7 +2,6 @@ import java.util.*;
 
 public class BankTeller {
 	private static int nextAccountID = 100;
-	//private SortedList accounts;
 	List<AccountData> accounts;
 	
 
@@ -19,7 +18,6 @@ public class BankTeller {
 	 **/
 	public int openAccount(String name) {
 		AccountData newData = new AccountData(name, nextAccountID);
-		//accounts.insert(newData);
 		accounts.add(newData);
 
 		nextAccountID++;
@@ -130,21 +128,6 @@ public class BankTeller {
 	 * @throws BadAccountException
 	 */
 	protected AccountData findAccount(int acct) throws BadAccountException {
-//		AccountData account = new AccountData("null", 0);
-//		Iterator<AccountData> iter = accounts.iterator();
-//		while (iter.hasNext()) {
-//			AccountData temp = (AccountData) iter.next();
-//			if(temp.getKey() == acct) {
-//				account = temp;
-//				System.out.print(account.getNumber());
-//			}
-//			break;
-//		}
-//		//AccountData account = (AccountData) accounts.find(acct);
-//		if (account.getKey() == 0) {
-//			throw new BadAccountException(acct);
-//		}
-//		return account;
 		AccountData account = new AccountData("null", 0);
 		Iterator<AccountData> iter = accounts.iterator();
 		while(iter.hasNext()) {
