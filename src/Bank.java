@@ -66,7 +66,7 @@ public class Bank {
 	private void doDeposit() throws IOException, BadAccountException {
 		// Get account number.
 		int acctNumber = readInt("Enter account number: ");
-		String str = readLine("Enter yout name");
+		String str = readLine("Enter yout name: ");
 		if (!str.equals(ATM.findAccount(acctNumber).getOwner())){
 			System.out.println("Name do not match; Deny access");
 			return;
@@ -86,7 +86,7 @@ public class Bank {
 	private void doWithdraw() throws IOException, BadAccountException {
 		// Get account number.
 		int acctNumber = readInt("Enter account number: ");
-		String str = readLine("Enter yout name");
+		String str = readLine("Enter yout name: ");
 		if (!str.equals(ATM.findAccount(acctNumber).getOwner())){
 			System.out.println("Name do not match; Deny access");
 			return;
@@ -106,7 +106,7 @@ public class Bank {
 	private void doExchange() throws IOException, BadAccountException {
 		// Get account number.
 		int acctNumber = readInt("Enter account number: ");
-		String str = readLine("Enter yout name");
+		String str = readLine("Enter yout name: ");
 		if (!str.equals(ATM.findAccount(acctNumber).getOwner())){
 			System.out.println("Name do not match; Deny access");
 			return;
@@ -124,7 +124,7 @@ public class Bank {
 		ATM.withdraw(acctNumber, exchange);
 		ATM.foreignDeposit(acctNumber, amount);
 		System.out.println("New balance for #" + acctNumber + " is " + ATM.balanceInquiry(acctNumber));
-		System.out.println("New foreign currency balance for #" + acctNumber + " is " + ATM.foreignBalanceInquiry(acctNumber));
+		System.out.println("New foreign currency balance for #" + acctNumber + " is " + ATM.foreignBalanceInquiry(acctNumber)+ " "+currency);
 	}
 
 	/**
