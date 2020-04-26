@@ -141,6 +141,7 @@ public class Bank {
 			return;
 		}
 		System.out.println("Balance for #" + acctNumber + " is " + ATM.balanceInquiry(acctNumber));
+		System.out.println("Balance for #" + acctNumber + " is " + ATM.foreignBalanceInquiry(acctNumber));
 	}
 
 	/**
