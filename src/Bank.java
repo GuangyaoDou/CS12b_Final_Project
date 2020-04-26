@@ -23,6 +23,8 @@ public class Bank {
 						bankApp.doDeposit();
 					} else if (command.equals("withdraw")) {
 						bankApp.doWithdraw();
+					} else if (command.equals("transfer")) {
+						bankApp.doTransfer();
 					} else if (command.equals("currency exchange")) {
 						bankApp.doExchange();
 					} else if (command.equals("inquire")) {
@@ -66,7 +68,7 @@ public class Bank {
 	private void doDeposit() throws IOException, BadAccountException {
 		// Get account number.
 		int acctNumber = readInt("Enter account number: ");
-		String str = readLine("Enter yout name: ");
+		String str = readLine("Enter your name: ");
 		if (!str.equals(ATM.findAccount(acctNumber).getOwner())){
 			System.out.println("Name do not match; Deny access");
 			return;
@@ -76,7 +78,35 @@ public class Bank {
 		ATM.deposit(acctNumber, amount);
 		System.out.println("New balance for #" + acctNumber + " is " + ATM.balanceInquiry(acctNumber));
 	}
+	
+	/**
+	  * Prompts the user for an account number and tries to perform a transfer
+	  * transaction on that account.
+	  * 
+	  * @exception IOException if there are problems reading user input.
+	  */
+	 private void doTransfer() throws IOException, BadAccountException {
+	  // Get account number.
+	  int acctNumber1 = readInt("Enter account number: "); // user's account number
+	  String str1 = readLine("Enter your name: "); // user's name
+	  if (!str1.equals(ATM.findAccount(acctNumber1).getOwner())){
+	   System.out.println("Name do not match; Deny access");
+	   return;
+	  }
+	  int acctNumber2 = readInt("Enter account number your want to transfer to:"); // receiver's account number
+	  String str2 = readLine("Enter receiver's name: "); // receiver's name
+	  if (!str2.equals(ATM.findAccount(acctNumber2).getOwner())){
+	   System.out.println("Name do not match; Please make sure the information is right before you do transfer");
+	   return;
+	  }
+	  
+	  int amount = readInt("Enter amount to transfer: ");
 
+	  ATM.deposit(acctNumber2, amount);
+	  ATM.withdraw(acctNumber1, amount);
+	  System.out.println("New balance for #" + acctNumber1 + " is " + ATM.balanceInquiry(acctNumber1));
+	 }
+	 
 	/**
 	 * Prompts the user for an account number and tries to perform a withdrawal
 	 * transaction from that account.
@@ -86,7 +116,7 @@ public class Bank {
 	private void doWithdraw() throws IOException, BadAccountException {
 		// Get account number.
 		int acctNumber = readInt("Enter account number: ");
-		String str = readLine("Enter yout name: ");
+		String str = readLine("Enter your name: ");
 		if (!str.equals(ATM.findAccount(acctNumber).getOwner())){
 			System.out.println("Name do not match; Deny access");
 			return;
@@ -106,7 +136,7 @@ public class Bank {
 	private void doExchange() throws IOException, BadAccountException {
 		// Get account number.
 		int acctNumber = readInt("Enter account number: ");
-		String str = readLine("Enter yout name: ");
+		String str = readLine("Enter your name: ");
 		if (!str.equals(ATM.findAccount(acctNumber).getOwner())){
 			System.out.println("Name do not match; Deny access");
 			return;
@@ -135,7 +165,7 @@ public class Bank {
 	 */
 	private void doInquire() throws IOException, BadAccountException {
 		int acctNumber = readInt("Enter account number: ");
-		String str = readLine("Enter yout name: ");
+		String str = readLine("Enter your name: ");
 		if (!str.equals(ATM.findAccount(acctNumber).getOwner())){
 			System.out.println("Name do not match; Deny access");
 			return;
@@ -158,7 +188,7 @@ public class Bank {
 	 * displays instructions on using the command line arguments.
 	 */
 	private static void usage() {
-		System.out.println("Valid commands are: " + "open, deposit, withdraw, currency exchange, inquire, quit");
+		System.out.println("Valid commands are: " + "open, deposit, withdraw, transfer, currency exchange, inquire, quit");
 	}
 
 	/**
