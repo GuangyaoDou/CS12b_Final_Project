@@ -87,7 +87,7 @@ public class BankTeller {
 	 * @return the AccountData object associated with the account number.
 	 * @throws BadAccountException
 	 */
-	private AccountData findAccount(int acct) throws BadAccountException {
+	protected AccountData findAccount(int acct) throws BadAccountException {
 //		AccountData account = new AccountData("null", 0);
 //		Iterator<AccountData> iter = accounts.iterator();
 //		while (iter.hasNext()) {

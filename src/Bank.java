@@ -63,6 +63,11 @@ public class Bank {
 	private void doDeposit() throws IOException, BadAccountException {
 		// Get account number.
 		int acctNumber = readInt("Enter account number: ");
+		String str = readLine("Enter yout name");
+		if (!str.equals(ATM.findAccount(acctNumber).getOwner())){
+			System.out.println("Name do not match; Deny access");
+			return;
+		}
 		int amount = readInt("Enter amount to deposit: ");
 
 		ATM.deposit(acctNumber, amount);
@@ -78,6 +83,11 @@ public class Bank {
 	private void doWithdraw() throws IOException, BadAccountException {
 		// Get account number.
 		int acctNumber = readInt("Enter account number: ");
+		String str = readLine("Enter yout name");
+		if (!str.equals(ATM.findAccount(acctNumber).getOwner())){
+			System.out.println("Name do not match; Deny access");
+			return;
+		}
 		int amount = readInt("Enter amount to withdraw: ");
 
 		ATM.withdraw(acctNumber, amount);
@@ -92,7 +102,11 @@ public class Bank {
 	 */
 	private void doInquire() throws IOException, BadAccountException {
 		int acctNumber = readInt("Enter account number: ");
-
+		String str = readLine("Enter yout name");
+		if (!str.equals(ATM.findAccount(acctNumber).getOwner())){
+			System.out.println("Name do not match; Deny access");
+			return;
+		}
 		System.out.println("Balance for #" + acctNumber + " is " + ATM.balanceInquiry(acctNumber));
 	}
 
