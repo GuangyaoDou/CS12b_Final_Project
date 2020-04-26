@@ -3,7 +3,7 @@ public class AccountData implements Keyable {
 	private String name; // Customer name.
 	private int balance; // Starting balance.
 	private int number; // Account number.
-	private int foreignBalance; //balance in foreign account.
+	private int foreignBalance; //balance in foreign currency account.
 
 	public AccountData(String newName, int num) {
 		name = newName;
