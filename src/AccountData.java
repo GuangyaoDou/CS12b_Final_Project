@@ -3,11 +3,13 @@ public class AccountData implements Keyable {
 	private String name; // Customer name.
 	private int balance; // Starting balance.
 	private int number; // Account number.
+	private int foreignBalance; //balance in foreign account.
 
 	public AccountData(String newName, int num) {
 		name = newName;
 		number = num;
 		balance = 0;
+		foreignBalance = 0;
 	}
 
 	/**
@@ -38,6 +40,13 @@ public class AccountData implements Keyable {
 	public int getBalance() {
 		return balance;
 	}
+	
+	/**
+	 * Returns the foreign currency balance of this account.
+	 **/
+	public int getForeignBalance() {
+		return foreignBalance;
+	}
 
 	/**
 	 * Reduces the balance by the withdrawal amount "amt".
@@ -56,6 +65,18 @@ public class AccountData implements Keyable {
 	public void deposit(int amt) {
 		if (amt >= 0) {
 			balance = balance + amt;
+		} else {
+			System.out.println("Error:  Tried to deposit less than 0: " + amt);
+		}
+	}
+	
+	/**
+	 * deposit amt foreign currency into the account.
+	 * @param amt
+	 */
+	public void foreignDeposit(int amt) {
+		if (amt >= 0) {
+			foreignBalance = foreignBalance + amt;
 		} else {
 			System.out.println("Error:  Tried to deposit less than 0: " + amt);
 		}

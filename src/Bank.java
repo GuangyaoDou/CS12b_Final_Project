@@ -2,6 +2,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.*;
 
 public class Bank {
 	private BufferedReader bReader = new BufferedReader(new InputStreamReader(System.in));
@@ -22,6 +23,8 @@ public class Bank {
 						bankApp.doDeposit();
 					} else if (command.equals("withdraw")) {
 						bankApp.doWithdraw();
+					} else if (command.equals("currency exchange")) {
+						bankApp.doExchange();
 					} else if (command.equals("inquire")) {
 						bankApp.doInquire();
 					} else {
@@ -93,6 +96,36 @@ public class Bank {
 		ATM.withdraw(acctNumber, amount);
 		System.out.println("New balance for #" + acctNumber + " is " + ATM.balanceInquiry(acctNumber));
 	}
+	
+	/**
+	 * Prompts the user for an account number and tries to perform a currency exchange
+	 * transaction from that account.
+	 * @throws IOException
+	 * @throws BadAccountException
+	 */
+	private void doExchange() throws IOException, BadAccountException {
+		// Get account number.
+		int acctNumber = readInt("Enter account number: ");
+		String str = readLine("Enter yout name");
+		if (!str.equals(ATM.findAccount(acctNumber).getOwner())){
+			System.out.println("Name do not match; Deny access");
+			return;
+		}
+		Map<String, Double> exchangeRate = new HashMap<String, Double>();
+		exchangeRate.put("EUR", 0.93);
+		exchangeRate.put("GBP", 0.81);
+		exchangeRate.put("CAD", 1.41);
+		exchangeRate.put("JPY", 107.45);
+		exchangeRate.put("HKD", 7.75);
+		System.out.println("We provide currency exchange for EUR, GBP, CAD，JPY, HKD.");
+		String currency = readLine("Enter the currency: ");
+		int exchange = readInt("Enter amount to exchange(in USD): ");
+		int amount = (int)(exchangeRate.get(currency)*exchange);
+		ATM.withdraw(acctNumber, exchange);
+		ATM.foreignDeposit(acctNumber, amount);
+		System.out.println("New balance for #" + acctNumber + " is " + ATM.balanceInquiry(acctNumber));
+		System.out.println("New foreign currency balance for #" + acctNumber + " is " + ATM.foreignBalanceInquiry(acctNumber));
+	}
 
 	/**
 	 * Prompts the user for an account number, then attempts to discover and print
@@ -124,7 +157,7 @@ public class Bank {
 	 * displays instructions on using the command line arguments.
 	 */
 	private static void usage() {
-		System.out.println("Valid commands are: " + "open, deposit, withdraw, inquire, quit");
+		System.out.println("Valid commands are: " + "open, deposit, withdraw, currency exchange, inquire, quit");
 	}
 
 	/**

@@ -60,6 +60,20 @@ public class BankTeller {
 		}
 
 	}
+	
+	/**
+	 * Deposits "amount" foreign currency into the bank account whose number is "acct".
+	 * @param acct
+	 * @param amount
+	 * @throws BadAccountException
+	 */
+	public void foreignDeposit(int acct, int amount) throws BadAccountException {
+		AccountData account = findAccount(acct);
+
+		if (account != null) {
+			account.foreignDeposit(amount);
+		}
+	}
 
 	/**
 	 * Finds the balance on the account whose number is "acct". If "acct" is an
@@ -76,6 +90,23 @@ public class BankTeller {
 			return -1;
 		} else {
 			return account.getBalance();
+		}
+	}
+	
+	/**
+	 * Finds the foreign currency balance on the account whose number is "acct".
+	 * @param acct
+	 * @return
+	 * @throws BadAccountException
+	 */
+	public int foreignBalanceInquiry(int acct) throws BadAccountException {
+		AccountData account = findAccount(acct);
+
+		if (account == null) {
+			System.out.println("Error:  Couldn't find account number `" + acct + "'");
+			return -1;
+		} else {
+			return account.getForeignBalance();
 		}
 	}
 
